@@ -22,4 +22,21 @@ td {
   height: 20vmin;
   border-radius: 1vmin;
   background-color: rgb(68, 68, 68);
+}
+
+.cell_number {
+  text-align: center;
+  font-weight: bold;
+  color: #201713;
+  font-weight: 700;
+  font-size: 90px;
+  transition: 100ms ease-in-out;
+}
+
+.cell_number_2 {
+  background-color: #f6e6da;
+}
+
+.cell_number_4 {
+  background-color: #edcdb6;
 }/*# sourceMappingURL=style.css.map */
