@@ -52,17 +52,42 @@ class Cell {
 }
 
 let cells = [];
-let cellsElement = document.querySelectorAll(".cell_number");
+let block = false;
+
+const overlay = document.querySelector(".overlay");
+const endBoxClose = document.querySelector(".endBox__close");
+const endBoxBlock = document.querySelector(".endBox");
+const newGameButton = document.querySelector(".endBox__new-game-button");
+endBoxClose.addEventListener("click", closeEndBox);
+newGameButton.addEventListener("click", newGame);
 
 window.addEventListener("load", () => {
+    newGame();
+});
+
+function newGame() {
+    closeEndBox();
+    cells = [];
+    const allCellsElement = document.querySelectorAll(".cell_number");
+    allCellsElement.forEach((e) => e.remove());
     createStartCells();
     addNumberToCells();
-    printCells();
-});
+    printCells(cells);
+}
+
+function endTheGame() {
+    endBoxBlock.classList.add("endBox--open");
+    overlay.classList.add("overlay--open");
+}
+
+function closeEndBox() {
+    endBoxBlock.classList.remove("endBox--open");
+    overlay.classList.remove("overlay--open");
+}
 
 document.addEventListener("keydown", (event) => {
     const key = event.key;
-    if (existEmpty()) {
+    if (canMove() && !block) {
         switch (key) {
             case "ArrowUp":
                 console.log("moveToUp");
@@ -86,16 +111,18 @@ document.addEventListener("keydown", (event) => {
                 break;
         }
         newRandomCell();
-        printCells();
+        printCells(cells);
+    } else {
+        endTheGame();
     }
 });
 
-function printCells() {
+function printCells(cells) {
     let string = "";
     for (let x = 0; x < cells.length; x++) {
         for (let y = 0; y < cells.length; y++) {
             string +=
-                cells[x][y].number !== 0 ? cells[x][y].number + " " : "-" + " ";
+                cells[x][y].number !== 0 ? cells[x][y].number + " " : "0" + " ";
         }
         string += `\n`;
     }
@@ -209,6 +236,41 @@ function existEmpty() {
     return false;
 }
 
+function canMove() {
+    const hasZero = existEmpty();
+    if (!hasZero) {
+        const newCells = [];
+        for (let x = 0; x < 6; x++) {
+            let rowCell = [];
+            for (let y = 0; y < 6; y++) {
+                let cell = -1;
+                if (y !== 0 && x !== 0 && y !== 5 && x !== 5) {
+                    cell = cells[x - 1][y - 1].getNumber();
+                }
+                rowCell.push(cell);
+            }
+            newCells.push(rowCell);
+        }
+
+        for (let y = 1; y < 5; y++) {
+            for (let x = 1; x < 5; x++) {
+                let cellNumber = newCells[x][y];
+                if (
+                    cellNumber === newCells[x - 1][y] ||
+                    cellNumber === newCells[x + 1][y] ||
+                    cellNumber === newCells[x][y - 1] ||
+                    cellNumber === newCells[x][y + 1]
+                ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    } else {
+        return true;
+    }
+}
+
 function newRandomCell() {
     let emptyLocations = [];
     for (let y = 0; y < 4; y++) {
@@ -222,7 +284,7 @@ function newRandomCell() {
     if (emptyLocations.length !== 0) {
         const newLocation =
             emptyLocations[randomInteger(emptyLocations.length)];
-        console.log(newLocation);
+        //console.log(newLocation);
         const newCell = new Cell(
             getRandomStartNumber(),
             newLocation[0],
@@ -230,8 +292,8 @@ function newRandomCell() {
         );
         cells[newCell.locationX][newCell.locationY].setNumber(newCell.number);
         createCell(cells[newCell.locationX][newCell.locationY]);
-        printCells();
-        console.log(cells[newCell.locationX][newCell.locationY]);
+        printCells(cells);
+        //console.log(cells[newCell.locationX][newCell.locationY]);
     }
 }
 

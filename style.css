@@ -1,96 +1,207 @@
 body {
-  background-color: rgb(51, 51, 51);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background-color: rgb(51, 51, 51);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(51, 51, 51, 0.6);
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+}
+.overlay--open {
+    visibility: visible;
+    opacity: 1;
+}
+.endBox__close {
+    background: url(/image/close.svg);
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 31px;
+    height: 31px;
+}
+.endBox {
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    position: absolute;
+    visibility: visible;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    margin-right: 15px;
+    margin-left: 15px;
+    background-color: rgb(51, 51, 51);
+    z-index: 300;
+    border-radius: 5px;
+    width: 100vmin;
+    height: 273px;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.3);
+    color: rgb(240, 228, 217);
+    font-size: 20px;
+}
+.endBox--open {
+    visibility: visible;
+    opacity: 100;
+}
+.endBox-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 50%;
+    padding: 15px;
+}
+.endBox__title {
+    font-size: 70px;
+    text-align: center;
+    font-weight: bold;
+}
+.endBox__current-score {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+.endBox__current-score-title {
+    font-weight: bold;
+}
+.endBox__current-score-numbers {
+}
+.endBox__best-score {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+.endBox__best-score-title {
+    font-weight: bold;
+}
+.endBox__best-score-numbers {
+}
+.endBox__new-game {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+
+.endBox__new-game-title {
+    font-weight: bold;
+}
+
+.endBox__new-game-button {
+    width: 30%;
+    background: rgb(240, 228, 217);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    align-items: center;
+    appearance: none;
+    border: 1px solid rgb(240, 228, 217);
+    border-radius: 0.375em;
+    box-shadow: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1rem;
+    height: 2.5em;
+    justify-content: center;
+    line-height: 1.5;
+    padding: calc(0.5em - 1px) 1em;
+    text-align: center;
 }
 
 .playing-field {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #table {
-  display: grid;
-  grid-template: repeat(4, 1fr)/repeat(4, 1fr);
-  gap: 1vmin;
-  position: relative;
+    display: grid;
+    grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+    gap: 1vmin;
+    position: relative;
 }
 
 .cell {
-  width: 20vmin;
-  height: 20vmin;
-  border-radius: 1vmin;
-  background-color: rgb(68, 68, 68);
+    width: 20vmin;
+    height: 20vmin;
+    border-radius: 1vmin;
+    background-color: rgb(68, 68, 68);
 }
 
 .cell_number {
-  --cell_size: 20vmin;
-  --cell_gap: 1vmin;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-weight: 700;
-  font-size: 90px;
-  border-radius: 1vmin;
-  width: 20vmin;
-  height: 20vmin;
-  position: absolute;
-  color: #201713;
-  top: calc(var(--x) * (var(--cell_size) + var(--cell_gap)));
-  left: calc(var(--y) * (var(--cell_size) + var(--cell_gap)));
-  animation: show 200ms ease-in-out;
-  transition: 100ms ease-in-out;
-  color:  rgb(255, 246, 230);
-}
-
-.cell_number_new {
+    --cell_size: 20vmin;
+    --cell_gap: 1vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 90px;
+    border-radius: 1vmin;
+    width: 20vmin;
+    height: 20vmin;
+    position: absolute;
+    color: #201713;
+    top: calc(var(--x) * (var(--cell_size) + var(--cell_gap)));
+    left: calc(var(--y) * (var(--cell_size) + var(--cell_gap)));
+    animation: show 200ms ease-in-out;
+    transition: 100ms ease-in-out;
+    color: rgb(255, 246, 230);
 }
 
 .cell_number_2 {
-  background-color: #f0e4d9;
-  color: rgb(68, 68, 68);
+    background-color: #f0e4d9;
+    color: rgb(68, 68, 68);
 }
 
 .cell_number_4 {
-  background-color: #eee1c7;
-  color: rgb(68, 68, 68);
+    background-color: #eee1c7;
+    color: rgb(68, 68, 68);
 }
 
 .cell_number_8 {
-  background-color: rgb(253, 175, 112);
+    background-color: rgb(253, 175, 112);
 }
 .cell_number_16 {
-  background-color: rgb(255, 143, 86);
+    background-color: rgb(255, 143, 86);
 }
 .cell_number_32 {
-  background-color: rgb(255, 112, 80);
+    background-color: rgb(255, 112, 80);
 }
 .cell_number_64 {
-  background-color: rgb(255, 70, 18);
+    background-color: rgb(255, 70, 18);
 }
 .cell_number_128 {
-  background-color: rgb(241, 210, 104);
+    background-color: rgb(241, 210, 104);
 }
 .cell_number_256 {
-  background-color: rgb(241, 208, 86);
+    background-color: rgb(241, 208, 86);
 }
 .cell_number_512 {
-  background-color: rgb(240, 203, 65);
+    background-color: rgb(240, 203, 65);
 }
 .cell_number_1024 {
-  background-color: rgb(242, 201, 39);
+    background-color: rgb(242, 201, 39);
 }
 .cell_number_2048 {
-  background-color: rgb(243, 197, 0);
+    background-color: rgb(243, 197, 0);
 }
 
 @keyframes show {
-  0% {
-    opacity: 0.5;
-    transform: scale(0);
-  }
-}/*# sourceMappingURL=style.css.map */
+    0% {
+        opacity: 0.5;
+        transform: scale(0);
+    }
+}
