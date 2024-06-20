@@ -4,7 +4,7 @@ class Cell {
     locationY;
     cellElement;
     constructor(number, locationX, locationY) {
-        this.number = number ?? "Undefined number";
+        this.number = number
         this.locationX = locationX.toString();
         this.locationY = locationY.toString();
     }
