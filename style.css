@@ -98,7 +98,8 @@ body {
     font-weight: bold;
 }
 
-.endBox__new-game-button {
+.endBox__new-game-button,
+.goBack__button {
     width: 30%;
     background: rgb(240, 228, 217);
     box-sizing: border-box;
@@ -117,6 +118,17 @@ body {
     line-height: 1.5;
     padding: calc(0.5em - 1px) 1em;
     text-align: center;
+}
+.goBack__button {
+    height: 49px;
+    width: 100px;
+    cursor: pointer;
+    position: absolute;
+    top: 8.5vmin;
+    right: 44vmin;
+    padding-right: 15px;
+    font-family: Andika, sans-serif;
+    font-weight: bold;
 }
 .score {
     color: #eee1c7;

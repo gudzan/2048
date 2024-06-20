@@ -52,7 +52,9 @@ class Cell {
 }
 
 let cells = [];
+let pastСells = [];
 let score = 0;
+let pastScore = 0;
 let bestScore = 0;
 
 const overlay = document.querySelector(".overlay");
@@ -65,9 +67,11 @@ const endCurrentScoreBox = document.querySelector(
     ".endBox__current-score-numbers"
 );
 const endBestScoreBox = document.querySelector(".endBox__best-score-numbers");
+const goBackButton = document.querySelector(".goBack__button");
 
 endBoxClose.addEventListener("click", closeEndBox);
 newGameButton.addEventListener("click", newGame);
+goBackButton.addEventListener("click", goBack);
 
 window.addEventListener("load", () => {
     newGame();
@@ -76,6 +80,7 @@ window.addEventListener("load", () => {
 function newGame() {
     closeEndBox();
     cells = [];
+    pastСells = [];
     score = 0;
     currentScoreBox.innerHTML = score;
     bestScore = localStorage.getItem("bestScore")
@@ -99,6 +104,29 @@ function endTheGame() {
     endBestScoreBox.innerHTML = bestScore;
 }
 
+function goBack() {
+    if (pastСells.length === 0) return;
+
+    for (let x = 0; x < 4; x++) {
+        for (let y = 0; y < 4; y++) {
+            if (pastСells[x][y] !== cells[x][y].getNumber()) {
+                if (pastСells[x][y] === 0) {
+                    cells[x][y].deleteNumber();
+                } else {
+                    if (cells[x][y].cellElement) {
+                        cells[x][y].changeNumberAndStyle(pastСells[x][y]);
+                    } else {
+                        cells[x][y].setNumber(pastСells[x][y]);
+                        createCell(cells[x][y]);
+                    }
+                }
+            }
+        }
+    }
+    score = pastScore;
+    currentScoreBox.innerHTML = score;
+}
+
 function colorBest() {
     if (score >= bestScore && score > 0) {
         currentScoreBox.classList.add("best-color");
@@ -113,33 +141,49 @@ function closeEndBox() {
     overlay.classList.remove("overlay--open");
 }
 
+function copyCells(cells) {
+    let array = [];
+    for (let x = 0; x < 4; x++) {
+        let rowCell = [];
+        for (let y = 0; y < 4; y++) {
+            rowCell.push(cells[x][y].getNumber());
+        }
+        array.push(rowCell);
+    }
+    return array;
+}
+
 document.addEventListener("keydown", (event) => {
     const key = event.key;
     if (canMove()) {
+        pastСells = copyCells(cells);
         switch (key) {
             case "ArrowUp":
                 //console.log("moveToUp");
                 countToUp();
                 moveToUp();
+                newRandomCell();
                 break;
             case "ArrowDown":
                 //console.log("moveToDown");
                 countToDown();
                 moveToDown();
+                newRandomCell();
                 break;
             case "ArrowLeft":
                 //console.log("moveToLeft");
                 countToLeft();
                 moveToLeft();
+                newRandomCell();
                 break;
             case "ArrowRight":
                 //console.log("moveToRight");
                 countToRight();
                 moveToRight();
+                newRandomCell();
                 break;
         }
-        newRandomCell();
-        //printCells(cells);
+        if (!canMove()) endTheGame();
     } else {
         endTheGame();
     }
@@ -361,13 +405,17 @@ function moveCell(cellFrom, cellTo) {
 }
 
 function countCell(currentCell, nextCell) {
-    score += (currentCell.number + nextCell.number);
+    pastScore = score;
+    score += currentCell.number + nextCell.number;
     currentScoreBox.innerHTML = score;
-    if (score > bestScore) {
+    if (score >= bestScore) {
         bestScore = score;
         localStorage.setItem("bestScore", bestScore);
         bestScoreBox.innerHTML = bestScore;
         colorBest();
+    }
+    if(currentCell.number + nextCell.number === 8){
+        console.log("You win!");
     }
     currentCell.changeNumberAndStyle(currentCell.number + nextCell.number);
     nextCell.deleteNumber();
