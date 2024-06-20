@@ -52,12 +52,20 @@ class Cell {
 }
 
 let cells = [];
-let block = false;
+let score = 0;
+let bestScore = 0;
 
 const overlay = document.querySelector(".overlay");
 const endBoxClose = document.querySelector(".endBox__close");
 const endBoxBlock = document.querySelector(".endBox");
 const newGameButton = document.querySelector(".endBox__new-game-button");
+const currentScoreBox = document.querySelector(".current-score-numbers");
+const bestScoreBox = document.querySelector(".best-score-numbers");
+const endCurrentScoreBox = document.querySelector(
+    ".endBox__current-score-numbers"
+);
+const endBestScoreBox = document.querySelector(".endBox__best-score-numbers");
+
 endBoxClose.addEventListener("click", closeEndBox);
 newGameButton.addEventListener("click", newGame);
 
@@ -68,16 +76,36 @@ window.addEventListener("load", () => {
 function newGame() {
     closeEndBox();
     cells = [];
+    score = 0;
+    currentScoreBox.innerHTML = score;
+    bestScore = localStorage.getItem("bestScore")
+        ? localStorage.getItem("bestScore")
+        : 0;
+    bestScoreBox.innerHTML = bestScore;
+    currentScoreBox.classList.remove("best-color");
+    bestScoreBox.classList.remove("best-color");
+    colorBest();
     const allCellsElement = document.querySelectorAll(".cell_number");
     allCellsElement.forEach((e) => e.remove());
     createStartCells();
     addNumberToCells();
-    printCells(cells);
+    //printCells(cells);
 }
 
 function endTheGame() {
     endBoxBlock.classList.add("endBox--open");
     overlay.classList.add("overlay--open");
+    endCurrentScoreBox.innerHTML = score;
+    endBestScoreBox.innerHTML = bestScore;
+}
+
+function colorBest() {
+    if (score >= bestScore && score > 0) {
+        currentScoreBox.classList.add("best-color");
+    }
+    if (bestScore > 0) {
+        bestScoreBox.classList.add("best-color");
+    }
 }
 
 function closeEndBox() {
@@ -87,31 +115,31 @@ function closeEndBox() {
 
 document.addEventListener("keydown", (event) => {
     const key = event.key;
-    if (canMove() && !block) {
+    if (canMove()) {
         switch (key) {
             case "ArrowUp":
-                console.log("moveToUp");
+                //console.log("moveToUp");
                 countToUp();
                 moveToUp();
                 break;
             case "ArrowDown":
-                console.log("moveToDown");
+                //console.log("moveToDown");
                 countToDown();
                 moveToDown();
                 break;
             case "ArrowLeft":
-                console.log("moveToLeft");
+                //console.log("moveToLeft");
                 countToLeft();
                 moveToLeft();
                 break;
             case "ArrowRight":
-                console.log("moveToRight");
+                //console.log("moveToRight");
                 countToRight();
                 moveToRight();
                 break;
         }
         newRandomCell();
-        printCells(cells);
+        //printCells(cells);
     } else {
         endTheGame();
     }
@@ -292,7 +320,7 @@ function newRandomCell() {
         );
         cells[newCell.locationX][newCell.locationY].setNumber(newCell.number);
         createCell(cells[newCell.locationX][newCell.locationY]);
-        printCells(cells);
+        //printCells(cells);
         //console.log(cells[newCell.locationX][newCell.locationY]);
     }
 }
@@ -333,6 +361,14 @@ function moveCell(cellFrom, cellTo) {
 }
 
 function countCell(currentCell, nextCell) {
+    score += (currentCell.number + nextCell.number);
+    currentScoreBox.innerHTML = score;
+    if (score > bestScore) {
+        bestScore = score;
+        localStorage.setItem("bestScore", bestScore);
+        bestScoreBox.innerHTML = bestScore;
+        colorBest();
+    }
     currentCell.changeNumberAndStyle(currentCell.number + nextCell.number);
     nextCell.deleteNumber();
 }

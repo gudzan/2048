@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
@@ -18,19 +22,28 @@
         <div class="endBox-inner">
             <div class="endBox__title">Конец игры</div>
             <div class="endBox__current-score">
-                <p class="endBox__current-score-title">Твой счет:</p>
-                <p class="endBox__current-score-numbers">777</p>
+                <div class="endBox__current-score-title">Твой счет:</div>
+                <div class="endBox__current-score-numbers"></div>
             </div>
             <div class="endBox__best-score">
-                <p class="endBox__best-score-title">Твой лучший счет:</p>
-                <p class="endBox__best-score-numbers">1000</p>
+                <div class="endBox__best-score-title">Твой лучший счет:</div>
+                <div class="endBox__best-score-numbers"></div>
             </div>
             <div class="endBox__new-game">
-                <p class="endBox__new-game-title">Начать заного?</p>
+                <div class="endBox__new-game-title">Начать заного?</div>
                 <button class="endBox__new-game-button">Да</button>
             </div>
         </div>
     </div>
+    <div class="score">
+        <div class="current-score">
+            <div class="current-score-title">Счет</div>
+            <div class="current-score-numbers"></div>
+            <div class="best-score-title">Рекорд</div>
+            <div class="best-score-numbers"></div>
+        </div>
+    </div>
+
     <div class="playing-field">
         <div id="table">
             <div class="cell"></div>

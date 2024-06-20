@@ -118,6 +118,26 @@ body {
     padding: calc(0.5em - 1px) 1em;
     text-align: center;
 }
+.score {
+    color: #eee1c7;
+    font-size: 40px;
+    position: absolute;
+    top: 8vmin;
+    left: 10vmin;
+    padding-left: 15px;
+    font-family: Andika, sans-serif;
+}
+.best-score-numbers {
+    color: #eee1c7;
+}
+.best-color {
+    color: rgb(255, 112, 80);
+}
+.current-score {
+    display: grid;
+    grid-template: repeat(2, auto) / repeat(2, auto);
+    column-gap: 20px;
+}
 
 .playing-field {
     height: 100%;
