@@ -4,7 +4,7 @@ class Cell {
     locationY;
     cellElement;
     constructor(number, locationX, locationY) {
-        this.number = number
+        this.number = number;
         this.locationX = locationX.toString();
         this.locationY = locationY.toString();
     }
@@ -53,32 +53,42 @@ class Cell {
 
 let cells = [];
 let pastСells = [];
+let win = false;
 let score = 0;
 let pastScore = 0;
 let bestScore = 0;
 
 const overlay = document.querySelector(".overlay");
-const endBoxClose = document.querySelector(".endBox__close");
 const endBoxBlock = document.querySelector(".endBox");
-const newGameButton = document.querySelector(".endBox__new-game-button");
+const winBoxBlock = document.querySelector(".winBox");
 const currentScoreBox = document.querySelector(".current-score-numbers");
 const bestScoreBox = document.querySelector(".best-score-numbers");
-const endCurrentScoreBox = document.querySelector(
-    ".endBox__current-score-numbers"
+const modalCurrentScoreBox = document.querySelectorAll(
+    ".modalBox__current-score-numbers"
 );
-const endBestScoreBox = document.querySelector(".endBox__best-score-numbers");
+const modalBestScoreBox = document.querySelectorAll(
+    ".modalBox__best-score-numbers"
+);
 const goBackButton = document.querySelector(".goBack__button");
+const modalBoxClose = document.querySelectorAll(".modalBox__close");
+const newGameButton = document.querySelectorAll(".modalBox__new-game-button");
+const continueGameButton = document.querySelector(".modalBox__continue-game-button");
 
-endBoxClose.addEventListener("click", closeEndBox);
-newGameButton.addEventListener("click", newGame);
+modalBoxClose.forEach((item) => {
+    item.addEventListener("click", closeModalBox);
+});
+newGameButton.forEach((item) => {
+    item.addEventListener("click", newGame);
+});
 goBackButton.addEventListener("click", goBack);
+continueGameButton.addEventListener("click", closeModalBox);
 
 window.addEventListener("load", () => {
     newGame();
 });
 
 function newGame() {
-    closeEndBox();
+    closeModalBox();
     cells = [];
     pastСells = [];
     score = 0;
@@ -94,14 +104,32 @@ function newGame() {
     allCellsElement.forEach((e) => e.remove());
     createStartCells();
     addNumberToCells();
+    win = false;
     //printCells(cells);
 }
 
-function endTheGame() {
+function theEnd() {
     endBoxBlock.classList.add("endBox--open");
     overlay.classList.add("overlay--open");
-    endCurrentScoreBox.innerHTML = score;
-    endBestScoreBox.innerHTML = bestScore;
+    fillScore();
+}
+
+function fillScore() {
+    modalCurrentScoreBox.forEach((item) => {
+        item.innerHTML = score;
+    });
+    modalBestScoreBox.forEach((item) => {
+        item.innerHTML = bestScore;
+    });
+}
+
+function victory() {
+    if (win !== true) {
+        winBoxBlock.classList.add("winBox--open");
+        overlay.classList.add("overlay--open");
+        fillScore();
+        win = true;
+    }
 }
 
 function goBack() {
@@ -136,8 +164,9 @@ function colorBest() {
     }
 }
 
-function closeEndBox() {
+function closeModalBox() {
     endBoxBlock.classList.remove("endBox--open");
+    winBoxBlock.classList.remove("winBox--open");
     overlay.classList.remove("overlay--open");
 }
 
@@ -183,9 +212,9 @@ document.addEventListener("keydown", (event) => {
                 newRandomCell();
                 break;
         }
-        if (!canMove()) endTheGame();
+        if (!canMove()) theEnd();
     } else {
-        endTheGame();
+        theEnd();
     }
 });
 
@@ -414,8 +443,8 @@ function countCell(currentCell, nextCell) {
         bestScoreBox.innerHTML = bestScore;
         colorBest();
     }
-    if(currentCell.number + nextCell.number === 8){
-        console.log("You win!");
+    if (currentCell.number + nextCell.number === 2048) {
+        victory();
     }
     currentCell.changeNumberAndStyle(currentCell.number + nextCell.number);
     nextCell.deleteNumber();

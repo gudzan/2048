@@ -11,49 +11,50 @@
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
-
     <title>2048</title>
 </head>
 
 <body>
     <div class="overlay"></div>
-    <div class="endBox">
-        <button class="endBox__close"></button>
-        <div class="endBox-inner">
-            <div class="endBox__title">Конец игры</div>
-            <div class="endBox__current-score">
-                <div class="endBox__current-score-title">Твой счет:</div>
-                <div class="endBox__current-score-numbers"></div>
+    <div class="endBox modalBox">
+        <button class="endBox__close modalBox__close"></button>
+        <div class="endBox-inner modalBox-inner">
+            <div class="endBox__title modalBox__title">Конец игры</div>
+            <div class="endBox__current-score modalBox__current-score">
+                <div class="endBox__current-score-title modalBox__current-score-title">Твой счет:</div>
+                <div class="endBox__current-score-numbers modalBox__current-score-numbers"></div>
             </div>
-            <div class="endBox__best-score">
-                <div class="endBox__best-score-title">Твой лучший счет:</div>
-                <div class="endBox__best-score-numbers"></div>
+            <div class="endBox__best-score modalBox__best">
+                <div class="endBox__best-score-title modalBox__best-score-title">Твой лучший счет:</div>
+                <div class="endBox__best-score-numbers modalBox__best-score-numbers"></div>
             </div>
             <div class="endBox__new-game">
                 <div class="endBox__new-game-title">Начать заного?</div>
-                <button class="endBox__new-game-button">Да</button>
+                <button class="endBox__new-game-button modalBox__new-game-button modalBox-button">Да</button>
             </div>
         </div>
     </div>
 
-    <!-- <div class="winBox">
-        <button class="winBox__close"></button>
-        <div class="winBox-inner">
-            <div class="winBox__title">Победа!</div>
-            <div class="winBox__current-score">
-                <div class="winBox__current-score-title">Твой счет:</div>
-                <div class="winBox__current-score-numbers"></div>
-            </div>
-            <div class="winBox__best-score">
-                <div class="winBox__best-score-title">Твой лучший счет:</div>
-                <div class="winBox__best-score-numbers"></div>
+    <div class="winBox modalBox">
+        <button class="winBox__close modalBox__close"></button>
+        <div class="winBox-inner modalBox-inner">
+            <div class="winBox__title modalBox__title">Победа!</div>
+            <div class="winBox__score">
+                <div class="winBox__current-score modalBox__current-score">
+                    <div class="winBox__current-score-title modalBox__current-score-title">Твой счет:</div>
+                    <div class="winBox__current-score-numbers modalBox__current-score-numbers"></div>
+                </div>
+                <div class="winBox__best-score modalBox__best-score">
+                    <div class="winBox__best-score-title modalBox__best-score-title">Твой лучший счет:</div>
+                    <div class="winBox__best-score-numbers modalBox__best-score-numbers"></div>
+                </div>
             </div>
             <div class="winBox__button-box">
-                <button class="winBox__continue-game-title">Продолжить игру</button>
-                <button class="winBox__new-game-title">Начать заного</button>
+                <button class="modalBox__continue-game-button winBox__button modalBox-button">Продолжить игру</button>
+                <button class="modalBox__new-game-button winBox__button modalBox-button">Начать заного</button>
             </div>
         </div>
-    </div> -->
+    </div>
     <div class="score">
         <div class="current-score">
             <div class="current-score-title">Счет</div>
@@ -62,7 +63,6 @@
             <div class="best-score-numbers"></div>
         </div>
     </div>
-
     <div class="playing-field">
         <div id="table">
             <div class="cell"></div>
@@ -83,11 +83,8 @@
             <div class="cell"></div>
         </div>
     </div>
-
     <div>
         <button class="goBack__button">Назад</button>
     </div>
-
 </body>
-
 </html>

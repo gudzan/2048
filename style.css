@@ -21,7 +21,7 @@ body {
     visibility: visible;
     opacity: 1;
 }
-.endBox__close {
+.modalBox__close {
     background: url(/image/close.svg);
     position: absolute;
     top: 15px;
@@ -29,15 +29,12 @@ body {
     width: 31px;
     height: 31px;
 }
-.endBox {
+.modalBox {
     font-family: Andika, sans-serif;
-    visibility: hidden;
-    opacity: 0;
     display: flex;
     justify-content: center;
     padding: 15px;
     position: absolute;
-    visibility: visible;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -52,32 +49,49 @@ body {
     color: rgb(240, 228, 217);
     font-size: 20px;
 }
+.endBox {
+    visibility: hidden;
+    opacity: 0;
+}
 .endBox--open {
     visibility: visible;
     opacity: 100;
 }
-.endBox-inner {
+.winBox {
+    visibility: hidden;
+    opacity: 0;
+}
+.winBox--open {
+    visibility: visible;
+    opacity: 100;
+}
+.modalBox-inner {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 50%;
+    width: 60%;
     padding-bottom: 15px;
 }
+.endBox-inner {
+    width: 50%;
+}
+.modalBox__title,
 .endBox__title {
     font-size: 50px;
     text-align: center;
     font-weight: bold;
 }
+.modalBox__current-score,
 .endBox__current-score {
     display: flex;
     gap: 20px;
     justify-content: space-between;
 }
+.modalBox__current-score-title,
 .endBox__current-score-title {
     font-weight: bold;
 }
-.endBox__current-score-numbers {
-}
+.modalBox__best-score,
 .endBox__best-score {
     display: flex;
     gap: 20px;
@@ -86,20 +100,17 @@ body {
 .endBox__best-score-title {
     font-weight: bold;
 }
-.endBox__best-score-numbers {
-}
 .endBox__new-game {
     display: flex;
     justify-content: space-between;
     gap: 20px;
     align-items: center;
 }
-
 .endBox__new-game-title {
     font-weight: bold;
 }
-
 .endBox__new-game-button,
+.modalBox-button,
 .goBack__button {
     width: 30%;
     font-weight: bold;
@@ -120,6 +131,21 @@ body {
     line-height: 1.5;
     padding: calc(0.5em - 1px) 1em;
     text-align: center;
+}
+.winBox__score {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 10px;
+    width: 80%;
+}
+.winBox__button-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+.winBox__button {
+    width: 100%;
 }
 .goBack__button {
     height: 49px;
@@ -151,28 +177,24 @@ body {
     grid-template: repeat(2, auto) / repeat(2, auto);
     column-gap: 20px;
 }
-
 .playing-field {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 #table {
     display: grid;
     grid-template: repeat(4, 1fr) / repeat(4, 1fr);
     gap: 1vmin;
     position: relative;
 }
-
 .cell {
     width: 20vmin;
     height: 20vmin;
     border-radius: 1vmin;
     background-color: rgb(68, 68, 68);
 }
-
 .cell_number {
     font-family: Andika, sans-serif;
     --cell_size: 20vmin;
@@ -194,17 +216,14 @@ body {
     transition: 100ms ease-in-out;
     color: rgb(255, 246, 230);
 }
-
 .cell_number_2 {
     background-color: #f0e4d9;
     color: rgb(68, 68, 68);
 }
-
 .cell_number_4 {
     background-color: #eee1c7;
     color: rgb(68, 68, 68);
 }
-
 .cell_number_8 {
     background-color: rgb(253, 175, 112);
 }
@@ -232,7 +251,6 @@ body {
 .cell_number_2048 {
     background-color: rgb(243, 197, 0);
 }
-
 @keyframes show {
     0% {
         opacity: 0.5;
