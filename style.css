@@ -5,6 +5,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overscroll-behavior-y: none; /* После этого свайп вниз не будет вызывать обновление страницы */
 }
 .overlay {
     position: fixed;
