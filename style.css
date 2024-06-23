@@ -22,7 +22,7 @@ body {
     opacity: 1;
 }
 .modalBox__close {
-    background: url(/image/close.svg);
+    background: url(../image/close.svg);
     position: absolute;
     top: 15px;
     right: 15px;
