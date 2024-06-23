@@ -52,7 +52,7 @@ let win = false;
 let score = 0;
 let pastScore = 0;
 let bestScore = 0;
-let squareSide = 4;
+let size = 4;
 
 const overlay = document.querySelector(".overlay");
 const endBoxBlock = document.querySelector(".endBox");
@@ -129,8 +129,8 @@ function victory() {
 function goBack() {
     if (pastСells.length === 0) return;
 
-    for (let x = 0; x < squareSide; x++) {
-        for (let y = 0; y < squareSide; y++) {
+    for (let x = 0; x < size; x++) {
+        for (let y = 0; y < size; y++) {
             if (pastСells[x][y] !== cells[x][y].getNumber()) {
                 if (pastСells[x][y] === 0) {
                     cells[x][y].deleteNumber();
@@ -168,15 +168,23 @@ function closeModalBox() {
 
 function copyCells(cells) {
     let array = [];
-    for (let x = 0; x < squareSide; x++) {
+    for (let x = 0; x < size; x++) {
         let rowCell = [];
-        for (let y = 0; y < squareSide; y++) {
+        for (let y = 0; y < size; y++) {
             rowCell.push(cells[x][y].getNumber());
         }
         array.push(rowCell);
     }
     return array;
 }
+
+
+window.addEventListener('touchmove', function(e) {
+    if(window.pageYOffset === 0) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
 
 // window.addEventListener("keydown", (event) => {
 //     const key = event.key;
@@ -327,24 +335,24 @@ function countToDown() {
 }
 
 function moveToDown() {
-    for (let y = 0; y < squareSide; y++) {
+    for (let y = 0; y < size; y++) {
         columnMoveDown(y);
     }
 }
 
 function moveToUp() {
-    for (let y = 0; y < squareSide; y++) {
+    for (let y = 0; y < size; y++) {
         columnMoveUp(y);
     }
 }
 
 function moveToLeft() {
-    for (let x = 0; x < squareSide; x++) {
+    for (let x = 0; x < size; x++) {
         let numbers = getRowWithoutZero(x);
-        if (numbers.length === squareSide) {
+        if (numbers.length === size) {
             return;
         }
-        for (let y = 0; y < squareSide; y++) {
+        for (let y = 0; y < size; y++) {
             if (y < numbers.length) {
                 moveCell(numbers[y], cells[x][y]);
             } else {
@@ -355,14 +363,14 @@ function moveToLeft() {
 }
 
 function moveToRight() {
-    for (let x = 0; x < squareSide; x++) {
+    for (let x = 0; x < size; x++) {
         rowMoveRight(x);
     }
 }
 
 function existEmpty() {
-    for (let y = 0; y < squareSide; y++) {
-        for (let x = 0; x < squareSide; x++) {
+    for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
             if (cells[x][y].getNumber() === 0) {
                 return true;
             }
@@ -408,8 +416,8 @@ function canMove() {
 
 function newRandomCell() {
     let emptyLocations = [];
-    for (let y = 0; y < squareSide; y++) {
-        for (let x = 0; x < squareSide; x++) {
+    for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
             if (cells[x][y].getNumber() === 0) {
                 emptyLocations.push(cells[x][y].getLocation());
             }
@@ -483,10 +491,10 @@ function countCell(currentCell, nextCell) {
 
 function columnMoveUp(y) {
     let numbers = getColumnWithoutZero(y);
-    if (numbers.length === squareSide) {
+    if (numbers.length === size) {
         return;
     }
-    for (let x = 0; x < squareSide; x++) {
+    for (let x = 0; x < size; x++) {
         if (x < numbers.length) {
             moveCell(numbers[x], cells[x][y]);
         } else {
@@ -497,7 +505,7 @@ function columnMoveUp(y) {
 
 function columnMoveDown(y) {
     let numbers = getColumnWithoutZero(y).toReversed();
-    if (numbers.length === squareSide) {
+    if (numbers.length === size) {
         return;
     }
     for (let x = 3, i = 0; x >= 0; x--, i++) {
@@ -511,7 +519,7 @@ function columnMoveDown(y) {
 
 function rowMoveRight(x) {
     let numbers = getRowWithoutZero(x).toReversed();
-    if (numbers.length === squareSide) {
+    if (numbers.length === size) {
         return;
     }
     for (let y = 3, i = 0; y >= 0; y--, i++) {
@@ -525,7 +533,7 @@ function rowMoveRight(x) {
 
 function getRowWithoutZero(x) {
     let numbers = [];
-    for (let y = 0; y < squareSide; y++) {
+    for (let y = 0; y < size; y++) {
         if (cells[x][y].number !== 0) {
             numbers.push(cells[x][y]);
         }
@@ -535,7 +543,7 @@ function getRowWithoutZero(x) {
 
 function getColumnWithoutZero(y) {
     let numbers = [];
-    for (let x = 0; x < squareSide; x++) {
+    for (let x = 0; x < size; x++) {
         if (cells[x][y].number !== 0) {
             numbers.push(cells[x][y]);
         }
@@ -547,9 +555,9 @@ function createStartCells() {
     while (table.firstChild) {
         table.removeChild(table.firstChild);
     }
-    for (let x = 0; x < squareSide; x++) {
+    for (let x = 0; x < size; x++) {
         let rowCell = [];
-        for (let y = 0; y < squareSide; y++) {
+        for (let y = 0; y < size; y++) {
             const cell = new Cell(0, x, y);
             rowCell.push(cell);
             let startCell = document.createElement("div");

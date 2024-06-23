@@ -1,6 +1,4 @@
-*{
-    overscroll-behavior-y: none; /* После этого свайп вниз не будет вызывать обновление страницы */
-}
+
 body {
     font-family: Andika, sans-serif;
     background-color: rgb(51, 51, 51);
@@ -8,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    overflow:hidden;
 }
 .overlay {
     position: fixed;
