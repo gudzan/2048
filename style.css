@@ -245,11 +245,43 @@ body {
 .cell_number_512 {
     background-color: rgb(240, 203, 65);
 }
+.cell_number_1024,
+.cell_number_2048,
+.cell_number_4096,
+.cell_number_8192{
+    font-size: 60px;
+}
+
+.cell_number_16384,
+.cell_number_32768,
+.cell_number_65536{
+    font-size: 55px;
+}
+
 .cell_number_1024 {
     background-color: rgb(242, 201, 39);
 }
 .cell_number_2048 {
     background-color: rgb(243, 197, 0);
+}
+.cell_number_4096 {
+    background-color: rgb(255, 80, 75);
+}
+.cell_number_8192 {
+    background-color: rgb(255, 34, 75);
+}
+.cell_number_16384 {
+    background-color: rgb(248, 19, 30);
+}
+.cell_number_32768 {
+    background-color: rgb(96, 178, 219);
+}
+.cell_number_65536 {
+    background-color: rgb(83, 154, 229);
+}
+.cell_number_131072 {
+    background-color: rgb(0, 118, 193);
+    font-size: 40px;
 }
 @keyframes show {
     0% {
