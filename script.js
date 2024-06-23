@@ -179,43 +179,36 @@ function copyCells(cells) {
 }
 
 
-window.addEventListener('touchmove', function(e) {
-    if(window.pageYOffset === 0) {
-      e.preventDefault();
+window.addEventListener("keydown", (event) => {
+    const key = event.key;
+    if (canMove()) {
+        pastСells = copyCells(cells);
+        switch (key) {
+            case "ArrowUp":
+                countToUp();
+                moveToUp();
+                newRandomCell();
+                break;
+            case "ArrowDown":
+                countToDown();
+                moveToDown();
+                newRandomCell();
+                break;
+            case "ArrowLeft":
+                countToLeft();
+                moveToLeft();
+                newRandomCell();
+                break;
+            case "ArrowRight":
+                countToRight();
+                moveToRight();
+                newRandomCell();
+                break;
+        }
+    } else {
+        theEnd();
     }
-  }, { passive: false });
-
-
-// window.addEventListener("keydown", (event) => {
-//     const key = event.key;
-//     if (canMove()) {
-//         pastСells = copyCells(cells);
-//         switch (key) {
-//             case "ArrowUp":
-//                 countToUp();
-//                 moveToUp();
-//                 newRandomCell();
-//                 break;
-//             case "ArrowDown":
-//                 countToDown();
-//                 moveToDown();
-//                 newRandomCell();
-//                 break;
-//             case "ArrowLeft":
-//                 countToLeft();
-//                 moveToLeft();
-//                 newRandomCell();
-//                 break;
-//             case "ArrowRight":
-//                 countToRight();
-//                 moveToRight();
-//                 newRandomCell();
-//                 break;
-//         }
-//     } else {
-//         theEnd();
-//     }
-// });
+});
 
 window.addEventListener('swiped', function(e) {
     console.log(e.detail.dir); // swiped direction
