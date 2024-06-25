@@ -59,21 +59,13 @@ const endBoxBlock = document.querySelector(".endBox");
 const winBoxBlock = document.querySelector(".winBox");
 const currentScoreBox = document.querySelector(".current-score-numbers");
 const bestScoreBox = document.querySelector(".best-score-numbers");
-const modalCurrentScoreBox = document.querySelectorAll(
-    ".modalBox__current-score-numbers"
-);
-const modalBestScoreBox = document.querySelectorAll(
-    ".modalBox__best-score-numbers"
-);
+const modalCurrentScoreBox = document.querySelectorAll(".modalBox__current-score-numbers");
+const modalBestScoreBox = document.querySelectorAll(".modalBox__best-score-numbers");
 const goBackButton = document.querySelector(".goBack__button");
 const modalBoxClose = document.querySelectorAll(".modalBox__close");
 const newGameButton = document.querySelectorAll(".modalBox__new-game-button");
-const continueGameButton = document.querySelector(
-    ".modalBox__continue-game-button"
-);
-
+const continueGameButton = document.querySelector(".modalBox__continue-game-button");
 goBackButton.addEventListener("click", goBack);
-goBackButton.addEventListener("dblclick", allNumber);
 continueGameButton.addEventListener("click", closeModalBox);
 modalBoxClose.forEach((item) => {
     item.addEventListener("click", closeModalBox);
@@ -84,32 +76,6 @@ newGameButton.forEach((item) => {
 window.addEventListener("load", () => {
     newGame();
 });
-
-function allNumber(){
-    console.log("double");
-    ///debugger
-    closeModalBox();
-    cells = [];
-    pastСells = [];
-    deleteAllElementsByClass(".cell_number")
-    deleteAllElementsByClass(".cell")
-    let i = 2;
-    for (let x = 0; x < size; x++) {
-        let rowCell = [];
-        for (let y = 0; y < size; y++) {
-            const cell = new Cell(Math.pow(2,i), x, y);
-            i++
-            let startCell = document.createElement("div");
-            startCell.className = "cell";
-            startCell.innerHTML = "";
-            table.append(startCell);
-            rowCell.push(cell);
-        }
-        cells.push(rowCell);
-    }
-    printCells(cells)
-    addNumberToCells();
-}
 
 function newGame() {
     closeModalBox();
@@ -122,7 +88,7 @@ function newGame() {
         : 0;
     bestScoreBox.innerHTML = bestScore;
     colorBest();
-    deleteAllElementsByClass(".cell_number")
+    deleteAllElementsByClass(".cell_number");
     createStartCells();
     addNumberToCells();
     win = false;
@@ -204,12 +170,11 @@ function copyCells(cells) {
     return array;
 }
 
-
 window.addEventListener("keydown", (event) => {
     const key = event.key;
     if (canMove()) {
         pastСells = copyCells(cells);
-        
+
         switch (key) {
             case "ArrowUp":
                 countToUp();
@@ -232,13 +197,12 @@ window.addEventListener("keydown", (event) => {
                 newRandomCell();
                 break;
         }
-        printCells(cells)
     } else {
         theEnd();
     }
 });
 
-window.addEventListener('swiped', function(e) {
+window.addEventListener("swiped", function (e) {
     const key = e.detail.dir;
     if (canMove()) {
         pastСells = copyCells(cells);
@@ -268,26 +232,6 @@ window.addEventListener('swiped', function(e) {
         theEnd();
     }
 });
-
-
-function printCells(cells) {
-    let string = "";
-    for (let x = 0; x < cells.length; x++) {
-        for (let y = 0; y < cells.length; y++) {
-            string +=
-                cells[x][y].number !== 0 ? cells[x][y].number + " " : "0" + " ";
-        }
-        string += `\n`;
-    }
-    if(string.length!==0){
-
-        console.log(string);
-    }
-    else{
-        console.log("пусто пусто");
-    }
-
-}
 
 function countToLeft() {
     for (let x = 0; x < cells.length; x++) {
@@ -489,7 +433,7 @@ function moveCell(cellFrom, cellTo) {
 }
 
 function countCell(currentCell, nextCell) {
-    let sum = currentCell.number+nextCell.number;
+    let sum = currentCell.number + nextCell.number;
     pastScore = score;
     score += sum;
     currentScoreBox.innerHTML = score;
@@ -582,13 +526,13 @@ function getColumnWithoutZero(y) {
     return numbers;
 }
 
-function deleteAllElementsByClass(className){
+function deleteAllElementsByClass(className) {
     const allElement = document.querySelectorAll(className);
     allElement.forEach((e) => e.remove());
 }
 
 function createStartCells() {
-    deleteAllElementsByClass(".cell")
+    deleteAllElementsByClass(".cell");
     for (let x = 0; x < size; x++) {
         let rowCell = [];
         for (let y = 0; y < size; y++) {

@@ -8,7 +8,6 @@
     --font_size5: calc((var(--font_size) - 40px));
     --font_size6: calc((var(--font_size) - 45px));
 }
-
 body {
     font-family: Andika, sans-serif;
     background-color: rgb(51, 51, 51);
@@ -105,7 +104,7 @@ body {
     gap: 20px;
     justify-content: space-between;
 }
-.endBox__best-score-title {
+.modalBox__best-score-title {
     font-weight: bold;
 }
 .endBox__new-game {
@@ -165,7 +164,6 @@ body {
     height: 49px;
     width: 100px;
     cursor: pointer;
-
     font-family: Andika, sans-serif;
 }
 .score {
@@ -306,21 +304,14 @@ body {
         transform: scale(0);
     }
 }
-
 @media (max-width: 1500px) {
     .score {
         font-size: 30px;
     }
 }
-
 @media (max-width: 1400px) {
     :root {
-         --font_size: 85px;
-        /*--font_size2: 85px;
-        --font_size3: 75px;
-        --font_size4: 60px;
-        --font_size5: 45px;
-        --font_size6: 40px; */
+        --font_size: 85px;
     }
     .goBack {
         top: auto;
@@ -329,9 +320,6 @@ body {
         left: 5%;
         padding-right: 15px;
     }
-    /* body {
-        padding-bottom: 50px;
-    } */
     .playing-field {
         align-items: end;
     }
@@ -356,9 +344,17 @@ body {
         margin-bottom: 30px;
     }
 }
+@media (max-width: 1000px) {
+    .modalBox {
+        width: 91vw;
+    }
+}
 @media (max-width: 800px) {
     :root {
         --font_size: 80px;
+    }
+    .winBox-inner {
+        width: 90%;
     }
 }
 @media (max-width: 700px) {
@@ -367,15 +363,34 @@ body {
         --font_size2: calc((var(--font_size) - 15px));
         --font_size3: calc((var(--font_size) - 25px));
     }
+    .endBox-inner {
+        width: 80%;
+    }
 }
 @media (max-width: 600px) {
     :root {
         --font_size: 65px;
     }
+    .modalBox-inner {
+        font-size: 15px;
+    }
+    .modalBox__title {
+        font-size: 35px;
+    }
+    .winBox__button {
+        height: 3.5em;
+    }
 }
 @media (max-width: 450px) {
     :root {
         --font_size: 60px;
+    }
+    .score {
+        font-size: 20px;
+    }
+    .goBack__button {
+        height: 35px;
+        width: 80px;
     }
 }
 @media (max-width: 400px) {
@@ -384,10 +399,21 @@ body {
         --font_size5: calc((var(--font_size) - 35px));
         --font_size6: calc((var(--font_size) - 35px));
     }
+    .modalBox-inner {
+        font-size: 15px;
+    }
+    .winBox-inner {
+        padding: 0;
+    }
+    .winBox__button {
+        font-size: 14px;
+    }
+    .modalBox__title {
+        font-size: 25px;
+    }
 }
 @media (max-width: 360px) {
     :root {
         --font_size: 50px;
     }
 }
-
