@@ -174,7 +174,6 @@ window.addEventListener("keydown", (event) => {
     const key = event.key;
     if (canMove()) {
         pastСells = copyCells(cells);
-
         switch (key) {
             case "ArrowUp":
                 countToUp();
@@ -196,6 +195,9 @@ window.addEventListener("keydown", (event) => {
                 moveToRight();
                 newRandomCell();
                 break;
+        }
+        if (!canMove()) {
+            theEnd();
         }
     } else {
         theEnd();
@@ -227,6 +229,9 @@ window.addEventListener("swiped", function (e) {
                 moveToRight();
                 newRandomCell();
                 break;
+        }
+        if (!canMove()) {
+            theEnd();
         }
     } else {
         theEnd();
